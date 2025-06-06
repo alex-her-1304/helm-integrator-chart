@@ -1,14 +1,14 @@
 apiVersion: v1
 entries:
-  hello-world:
+  mychart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-06T15:47:24.96650248-03:00"
-    description: A simple Helm chart that creates hello-world namespace
-    digest: fe5066c9ee382686c1a4c86aaa1deb6340b617fb3bd0064be01120065c9bba34
-    name: hello-world
+    created: "2025-06-06T17:20:26.837619004-03:00"
+    description: A Helm chart for Helm Integrator
+    digest: ee2994da96214098f7e33959367db2a6921942cb4a7da90cfbb10f0710695e77
+    name: mychart
     type: application
     urls:
-    - hello-world-0.1.0.tgz
+    - mychart-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-06T15:47:24.965998576-03:00"
+generated: "2025-06-06T17:20:26.837124803-03:00"

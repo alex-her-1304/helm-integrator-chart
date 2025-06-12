@@ -3,12 +3,20 @@ entries:
   mychart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-06T17:20:26.837619004-03:00"
+    created: "2025-06-12T17:37:26.243723596-03:00"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.0.0
+    - condition: external-secrets.enabled
+      name: external-secrets
+      repository: https://charts.external-secrets.io
+      version: 0.17.0
     description: A Helm chart for Helm Integrator
-    digest: ee2994da96214098f7e33959367db2a6921942cb4a7da90cfbb10f0710695e77
+    digest: ea4e4770da0905abaac0ce5dae85b1e67fc0d6e2350c07c6bfe48e456e6d8118
     name: mychart
     type: application
     urls:
     - mychart-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-06T17:20:26.837124803-03:00"
+generated: "2025-06-12T17:37:26.231171831-03:00"

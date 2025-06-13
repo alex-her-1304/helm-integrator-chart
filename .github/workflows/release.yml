@@ -33,11 +33,13 @@ jobs:
         run: |
           echo "--- Helm install ---"
           ls
-          cp -r mychart /temp/mychart
+          cp -r mychart /tmp/mychart
           git checkout gh-pages
-          cp /temp/mychart mychart
+          cp -r /tmp/mychart mychart
           helm package mychart
           helm repo index .
+          rm -rf .github
+          rm -rf mychart
           git add .
           git commit -m "Overnight job ${GITHUB_ACTOR}"
           git push

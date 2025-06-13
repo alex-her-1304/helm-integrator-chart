@@ -2,8 +2,5 @@ dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 13.0.0
-- name: external-secrets
-  repository: https://charts.external-secrets.io
-  version: 0.17.0
-digest: sha256:691141d2a56a8e821b402368e21f9fa3b13956f8661faf50e66da89025a10034
-generated: "2025-06-12T17:27:38.416539897-03:00"
+digest: sha256:5fe845febcf94935c51850979be20f7512959fc91eaf78dd059c43e879e417b9
+generated: "2025-06-13T11:52:45.889629891-03:00"

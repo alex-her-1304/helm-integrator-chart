@@ -1,6 +1,6 @@
 appExternalSecret:
   name: app-secret
-  refreshInterval: 1m
+  refreshInterval: 5m
   env:
     - name: DB_PASSWORD
       value: /postgres/POSTGRES_PASSWORD
@@ -27,8 +27,6 @@ ingress:
   ingressClassName: nginx
 postgresql:
   auth:
-    database: ps_db
-    password: SecurePassword
-    username: ps_user
-external-secrets:
-  enabled: false
+    database: 
+    password: 
+    username: 

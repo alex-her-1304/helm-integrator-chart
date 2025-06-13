@@ -1,10 +1,8 @@
 name: Release Charts
-
 on:
   push:
-    branches:
-      - master
-
+    tags:
+      - '*-v[0-9]+.[0-9]+.[0-9]+'
 jobs:
   release:
     permissions:
@@ -15,13 +13,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: .
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Publish Helm chart index
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # La carpeta donde chart-releaser-action deja el índice y los paquetes
+          publish_dir: .cr-release-packages
+          # La rama de destino
+          publish_branch: gh-pages
+          # historial de la rama gh-pages
+          keep_files: true
+          commit_message: "CI: Update Helm chart index for ${{ github.ref_name }}"

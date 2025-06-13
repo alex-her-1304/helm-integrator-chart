@@ -1,8 +1,8 @@
 name: Release Charts
 on:
   push:
-    tags:
-      - '*-v[0-9]+.[0-9]+.[0-9]+'
+    branches:
+      - master
 jobs:
   release:
     permissions:
@@ -24,14 +24,14 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Publish Helm chart index
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # La carpeta donde chart-releaser-action deja el índice y los paquetes
-          publish_dir: .cr-release-packages
-          # La rama de destino
-          publish_branch: gh-pages
-          # historial de la rama gh-pages
-          keep_files: true
-          commit_message: "CI: Update Helm chart index for ${{ github.ref_name }}"
+      - name: Package and Publish Chart
+        run: |
+          echo "--- Helm install ---"
+          
+          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+          sudo apt-get install apt-transport-https --yes
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+          sudo apt-get update
+          sudo apt-get install helm
+          echo "--- end install ---"
+          helm version

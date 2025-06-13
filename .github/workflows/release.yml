@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "--- Helm install ---"
           ls
-          cp mychart /temp/mychart
+          cp -r mychart /temp/mychart
           git checkout gh-pages
           cp /temp/mychart mychart
           helm package mychart

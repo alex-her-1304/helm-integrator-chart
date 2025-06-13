@@ -35,3 +35,4 @@ jobs:
           sudo apt-get install helm
           echo "--- end install ---"
           helm version
+          

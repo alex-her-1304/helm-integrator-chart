@@ -15,16 +15,12 @@ jobs:
           fetch-depth: 0
       - name: Configure Git
         run: |
-          git config usaer.name "$GITHUB_ACTOR"
+          git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Install helm
-        run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm
-          helm version
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.17.3
       - name: Package and Publish Chart
         run: |
           cp -r mychart /tmp/mychart
@@ -32,10 +28,18 @@ jobs:
           cp -r /tmp/mychart mychart
           helm package mychart
           helm repo index .
+
+          echo "----Limpiando archivos----"
           rm -rf .github
           rm -rf mychart
-          GIT_STATUS=$(git status --porcelain) # output in an easy-to-parse format for scripts
-          echo $GIT_STATUS
-          git add .
-          if [ "$GIT_STATUS" != "" ]; then git commit -m "job number - ${{ github.run_number }}"; fi
-          if [ "$GIT_STATUS" != "" ]; then git push; fi
+          
+          GIT_STATUS=$(git status --porcelain)
+          
+          if [ -n "$GIT_STATUS" ]; then
+            echo "----Cambios detectados. Realizando commit y push----"
+            git add .
+            git commit -m "job number - ${{ github.run_number }}"
+            git push
+          else
+            echo "----No hay cambios----"
+          fi

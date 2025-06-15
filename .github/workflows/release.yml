@@ -1,41 +1,32 @@
 name: Release Charts
+
 on:
   push:
     branches:
       - master
+
 jobs:
   release:
+    # Es una buena práctica darle permisos específicos a la acción que los necesita.
     permissions:
-      contents: write
+      contents: write # para hacer push a gh-pages y crear releases
+      packages: write # opcional, si publicas a un registro de paquetes de GitHub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          # Necesitamos el historial completo para que chart-releaser pueda detectar cambios.
           fetch-depth: 0
+
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Install helm
-        run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm
-          helm version
-      - name: Package and Publish Chart
-        run: |
-          cp -r mychart /tmp/mychart
-          git checkout gh-pages
-          cp -r /tmp/mychart mychart
-          helm package mychart
-          helm repo index .
-          rm -rf .github
-          rm -rf mychart
-          GIT_STATUS=$(git status --porcelain) # output in an easy-to-parse format for scripts
-          echo $GIT_STATUS
-          git add docs/
-          if [ "$GIT_STATUS" != "" ]; then git commit -m "job number - ${{ github.run_number }}"; fi
-          if [ "$GIT_STATUS" != "" ]; then git push; fi
+
+      - name: Run chart-releaser
+        # Esta es la acción clave. ¡Hace todo el trabajo pesado!
+        uses: helm/chart-releaser-action@v1.6.0
+        env:
+          # El token es necesario para crear los releases y hacer push a gh-pages
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

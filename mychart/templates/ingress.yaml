@@ -2,7 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ printf "%s-ingress" .Release.Name }}
+  name: {{ printf "%s-ingress-app" .Release.Name }}
+  namespace: prod
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
@@ -16,6 +17,15 @@ spec:
                 name: {{ printf "%s-app-service" .Release.Name }}
                 port:
                   number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ printf "%s-ingress-argo" .Release.Name }}
+  namespace: argocd
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
     - host: argocd.example.com
       http:
         paths:

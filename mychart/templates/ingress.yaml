@@ -23,6 +23,8 @@ kind: Ingress
 metadata:
   name: {{ printf "%s-ingress-argo" .Release.Name }}
   namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:

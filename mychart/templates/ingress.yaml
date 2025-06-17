@@ -16,4 +16,14 @@ spec:
                 name: {{ printf "%s-app-service" .Release.Name }}
                 port:
                   number: 80
+    - host: argocd.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              name: https
 {{- end }}

@@ -3,7 +3,21 @@ entries:
   mychart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-17T14:24:18.000907606Z"
+    created: "2025-06-17T14:43:13.008796612Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.0.0
+    description: A Helm chart for Helm Integrator
+    digest: 690dbeb494d55d6e3720253d1ef3dce6526d2e59d7072b2f599fc103122c685d
+    name: mychart
+    type: application
+    urls:
+    - mychart-0.9.0.tgz
+    version: 0.9.0
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-17T14:43:13.005146637Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -17,7 +31,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-17T14:24:17.997168709Z"
+    created: "2025-06-17T14:43:13.00056819Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -31,7 +45,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-17T14:24:17.99266503Z"
+    created: "2025-06-17T14:43:12.996906152Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -45,7 +59,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-17T14:24:17.988875369Z"
+    created: "2025-06-17T14:43:12.992397777Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -59,7 +73,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-17T14:24:17.984119622Z"
+    created: "2025-06-17T14:43:12.988649346Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -71,4 +85,4 @@ entries:
     urls:
     - mychart-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-17T14:24:17.980056091Z"
+generated: "2025-06-17T14:43:12.98379813Z"

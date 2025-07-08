@@ -17,6 +17,10 @@ default:
   replicas: 1
   debug: 0
 secretStoreCredentials:
+  # If set to false, the secret store credentials will not be created
+  # Shoud be created manually in the cluster
+  enable: true
+  isStsEnable: false
   name: aws-creds
   # Specified de Access Key and Access Key ID to connect to aws
   aws_access_key_id: ""

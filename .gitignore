@@ -1,2 +1,3 @@
 .credentials-values.yaml
 o.yaml
+create-auth-aws-creds.sh
